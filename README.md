@@ -102,6 +102,8 @@ From test evaluation:
 ## How to Run
 
 1. Install dependencies:
-
+2. Prepare dataset (not included in repo)
+3. Run pipeline:
+python run.py --mode lgbm --preparedpath prepared_data/prepared_base --resampler smote
 ```bash
 pip install -r requirements.txt
