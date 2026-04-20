@@ -1,20 +1,32 @@
-## Fraud Detection using Machine Learning
+# Fraud Detection using Machine Learning
 
-This project was developed as part of a team, focused on detecting fraudulent transactions using the BAF dataset.
+Data informs; decisions define.
+
+This project implements an end-to-end machine learning pipeline for fraud detection using the Bank Account Fraud (BAF) dataset. The focus is on handling highly imbalanced data and optimizing model performance under realistic constraints.
 
 ---
 
-### My Contributions
+## Problem Context
+
+Fraud detection is a highly imbalanced classification problem (~1% fraud cases).  
+A model that maximizes accuracy can still fail in practice.
+
+The goal is to detect fraudulent transactions early while controlling false positives, which directly impact user experience and operational costs.
+
+---
+
+## My Contributions
+
 - Designed and implemented the data cleaning pipeline:
-  - Outlier detection and handling
-  - Feature transformations (Yeo-Johnson, log)
-  - Missing value imputation
-  - Categorical encoding (One-Hot Encoding)
+  - Outlier detection using IQR-based filtering :contentReference[oaicite:0]{index=0}
+  - Feature transformations (Yeo-Johnson, log scaling)
+  - Missing value handling and imputation
+  - One-hot encoding for categorical variables
 
 - Developed and trained the LightGBM model:
-  - Model training and hyperparameter tuning
-  - Handling imbalanced data (SMOTE / resampling)
-  - Threshold selection based on 5% FPR
+  - Implemented training pipeline using LightGBM :contentReference[oaicite:1]{index=1}
+  - Applied imbalance handling (SMOTE / oversampling) :contentReference[oaicite:2]{index=2}
+  - Selected classification threshold based on 5% False Positive Rate (FPR)
 
 - Evaluated model performance:
   - Metrics: AUC, Recall, F1-score, Accuracy
@@ -23,28 +35,73 @@ This project was developed as part of a team, focused on detecting fraudulent tr
 
 ---
 
-### Pipeline
+## Pipeline
+
 Raw Data → Cleaning → Feature Processing → Model → Evaluation
 
 ---
 
-### Model Used
-- LightGBM
+## Model
+
+- LightGBM (Gradient Boosted Trees)
+- Early stopping based on validation performance
+- Evaluation based on AUC and Recall under constrained FPR
 
 ---
 
-### Key Challenge
-Fraud detection is a highly imbalanced problem (~1% fraud cases), requiring careful evaluation beyond accuracy.
+## Key Technical Decisions
+
+- **Imbalanced Data Handling**  
+  Fraud cases represent ~1% → standard training leads to bias toward non-fraud.  
+  Solution: SMOTE / oversampling applied only on training data.
+
+- **Threshold Optimization (5% FPR)**  
+  Instead of default threshold (0.5), the model selects a threshold based on validation data to control false positives.  
+  This reflects real-world deployment constraints.
+
+- **Metric Selection**  
+  Accuracy is misleading → AUC and Recall are prioritized for evaluation.
 
 ---
 
-## Results Interpretation
+## Results
 
-- The model achieves strong AUC performance, indicating good discrimination between fraud and non-fraud cases.
-- Recall at 5% FPR was prioritized due to the nature of fraud detection.
-- Trade-off observed: improving recall increases false positives.
+From test evaluation:
+
+- **AUC:** 0.9540  
+- **Accuracy:** 0.9424  
+- **F1-score:** 0.2271  
+- **Recall @ 5% FPR:** 0.7711  
+
+:contentReference[oaicite:3]{index=3}
+
+### Interpretation
+
+- High AUC indicates strong discrimination between fraud and non-fraud cases  
+- High recall under constrained FPR shows effective detection while limiting false alarms  
+- Low F1-score reflects class imbalance (expected in fraud problems)
 
 ---
 
-### Original Team Repository
-(https://github.com/mrcolor-blind/ML_ForFraudDetection)
+## Learning Curves
+
+### Base Model
+![Learning Curve Base](results/lgbm_learning_curve_base.png)
+
+### Alternative Model
+![Learning Curve Alt](results/lgbm_learning_curve_alt.png)
+
+### Insights
+
+- Training AUC approaches 1.0 → model has high capacity  
+- Validation AUC stabilizes ~0.95 → good generalization  
+- Gap between train and validation suggests mild overfitting but acceptable performance
+
+---
+
+## How to Run
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
