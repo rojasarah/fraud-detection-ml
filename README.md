@@ -102,14 +102,15 @@ From test evaluation:
 ## How to Run
 
 1. Install dependencies:
-   
+```bash
 pip install -r requirements.txt
+```
 2. Prepare dataset:
 
    The dataset can be downloaded from Kaggle:
-   
-https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022
+     https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022
 
 3. Run pipeline:
-
+```bash
 python run.py --mode lgbm --preparedpath prepared_data/prepared_base --resampler smote
+```
