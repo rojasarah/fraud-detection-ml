@@ -38,9 +38,11 @@ Fraud detection is a highly imbalanced problem (~1% fraud cases), requiring care
 
 ---
 
-### Results
-- Metrics: AUC, Recall, Precision
-- Observed trade-offs between recall and false positives
+## Results Interpretation
+
+- The model achieves strong AUC performance, indicating good discrimination between fraud and non-fraud cases.
+- Recall at 5% FPR was prioritized due to the nature of fraud detection.
+- Trade-off observed: improving recall increases false positives.
 
 ---
 
