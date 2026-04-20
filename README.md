@@ -1,6 +1,5 @@
 # Fraud Detection using Machine Learning
-Focused on imbalanced classification and decision-oriented model evaluation.
-Data informs; decisions define. Building ML systems for real-world decision making.
+Focused on imbalanced classification and decision-oriented model evaluation. Building ML systems for real-world decision making.
 
 This project implements an end-to-end machine learning pipeline for fraud detection using the Bank Account Fraud (BAF) dataset. The focus is on handling highly imbalanced data and optimizing model performance under realistic constraints.
 
