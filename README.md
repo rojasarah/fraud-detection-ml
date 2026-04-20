@@ -1,6 +1,6 @@
 # Fraud Detection using Machine Learning
 
-Data informs; decisions define.
+Data informs; decisions define. Building ML systems for real-world decision making.
 
 This project implements an end-to-end machine learning pipeline for fraud detection using the Bank Account Fraud (BAF) dataset. The focus is on handling highly imbalanced data and optimizing model performance under realistic constraints.
 
@@ -18,14 +18,14 @@ The goal is to detect fraudulent transactions early while controlling false posi
 ## My Contributions
 
 - Designed and implemented the data cleaning pipeline:
-  - Outlier detection using IQR-based filtering :contentReference[oaicite:0]{index=0}
+  - Outlier detection using IQR-based filtering
   - Feature transformations (Yeo-Johnson, log scaling)
   - Missing value handling and imputation
   - One-hot encoding for categorical variables
 
 - Developed and trained the LightGBM model:
-  - Implemented training pipeline using LightGBM :contentReference[oaicite:1]{index=1}
-  - Applied imbalance handling (SMOTE / oversampling) :contentReference[oaicite:2]{index=2}
+  - Implemented training pipeline using LightGBM
+  - Applied imbalance handling (SMOTE / oversampling)
   - Selected classification threshold based on 5% False Positive Rate (FPR)
 
 - Evaluated model performance:
@@ -73,8 +73,6 @@ From test evaluation:
 - **F1-score:** 0.2271  
 - **Recall @ 5% FPR:** 0.7711  
 
-:contentReference[oaicite:3]{index=3}
-
 ### Interpretation
 
 - High AUC indicates strong discrimination between fraud and non-fraud cases  
@@ -105,12 +103,17 @@ From test evaluation:
 ```bash
 pip install -r requirements.txt
 ```
-2. Prepare dataset:
+2. Download dataset from Kaggle:
 
-   The dataset can be downloaded from Kaggle:
      https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022
 
-3. Run pipeline:
+3. Prepare data (clean + split):
+```bash
+python run.py --mode clean --datacsv path/to/dataset.csv
+python run.py --mode prepare --datacsv cleandata/dataset_clean.csv
+```
+4. Run model:
 ```bash
 python run.py --mode lgbm --preparedpath prepared_data/prepared_base --resampler smote
 ```
+>Note: The prepared_data folder is generated after running the preparation stage.
